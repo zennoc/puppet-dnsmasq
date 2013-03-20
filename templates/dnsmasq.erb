@@ -1,6 +1,17 @@
 #File Managed by Puppet
-<% if scope.lookupvar("dnsmasq::neg_ttl") != '' %>
-neg_ttl=<%= scope.lookupvar("dnsmasq::neg_ttl") %>
+<% if bool_local_only %>
+listen-address=127.0.0.1
 <% else %>
-//neg_ttl=3600
+#To use set local_only => true
+#listen-address=127.0.0.1
+<% end %>
+# server => ['8.8.8.8', '8.8.4.4']
+<% scope.lookupvar('dnsmasq::array_servers').each do |dns| %>server=<%= dns %>
+<% end %>
+cache-size=<%= cache_size %>
+<% if bool_no_negcache %>
+no-negcache
+<% else %>
+#To use set local_only => true
+#no-negcache
 <% end %>

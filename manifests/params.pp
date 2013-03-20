@@ -13,6 +13,13 @@
 # It may be imported or inherited by other classes
 #
 class dnsmasq::params {
+  # ## Module related parameters
+
+  $local_only = true
+  $server = ''    ]
+  $cache_size = 150
+  $no_negcache = false
+
   # ## Application related parameters
 
   $package = $::operatingsystem ? {
