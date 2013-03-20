@@ -1,9 +1,6 @@
 #File Managed by Puppet
-<% if bool_local_only %>
-listen-address=127.0.0.1
-<% else %>
-#To use set local_only => true
-#listen-address=127.0.0.1
+# listen => ['127.0.0.1', '1.2.3.4']
+<% scope.lookupvar('dnsmasq::array_listen').each do |listen| %>listen-address=<%= listen %>
 <% end %>
 # server => ['8.8.8.8', '8.8.4.4']
 <% scope.lookupvar('dnsmasq::array_servers').each do |dns| %>server=<%= dns %>

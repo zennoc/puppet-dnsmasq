@@ -241,10 +241,10 @@ class dnsmasq (
   $log_file            = params_lookup('log_file'),
   $port                = params_lookup('port'),
   $protocol            = params_lookup('protocol'),
-  $local_only          = params_lookup('local_only'),
   $server              = params_lookup('server'),
   $cache_size          = params_lookup('cache_size'),
-  $no_negcache         = params_lookup('no_negcache'),) inherits dnsmasq::params {
+  $no_negcache         = params_lookup('no_negcache'),
+  $listen              = params_lookup('listen'),) inherits dnsmasq::params {
   $bool_source_dir_purge = any2bool($source_dir_purge)
   $bool_service_autorestart = any2bool($service_autorestart)
   $bool_absent = any2bool($absent)
@@ -256,7 +256,6 @@ class dnsmasq (
   $bool_debug = any2bool($debug)
   $bool_audit_only = any2bool($audit_only)
   $bool_noops = any2bool($noops)
-  $bool_local_only = any2bool($local_only)
   $bool_no_negcache = any2bool($no_negcache)
   $array_servers = is_array($dnsmasq::server) ? {
     false   => $dnsmasq::server ? {
@@ -266,7 +265,14 @@ class dnsmasq (
     },
     default => $dnsmasq::server,
   }
-
+  $array_listen = is_array($dnsmasq::listen) ? {
+    false   => $dnsmasq::listen ? {
+      ''      => [
+        ],
+      default => split($dnsmasq::listen, ','),
+    },
+    default => $dnsmasq::listen,
+  }
   # ## Definition of some variables used in the module
   $manage_package = $dnsmasq::bool_absent ? {
     true  => 'absent',
