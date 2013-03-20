@@ -40,11 +40,13 @@ class dnsmasq::params {
   }
 
   $config_dir = $::operatingsystem ? {
-    default => '/etc/dnsmasq',
+    /(?i:Debian|Ubuntu|Mint)/ => '/etc/dnsmasq.d/',
+    default                   => '/etc/dnsmasq/',
   }
 
   $config_file = $::operatingsystem ? {
-    default => '/etc/dnsmasq.conf',
+    /(?i:Debian|Ubuntu|Mint)/ => '/etc/dnsmasq.d/00-main',
+    default                   => '/etc/dnsmasq.conf',
   }
 
   $config_file_mode = $::operatingsystem ? {
@@ -65,7 +67,8 @@ class dnsmasq::params {
   }
 
   $pid_file = $::operatingsystem ? {
-    default => '/var/run/dnsmasq.pid',
+    /(?i:Debian|Ubuntu|Mint)/ => '/var/run/dnsmasq/dnsmasq.pid',
+    default                   => '/var/run/dnsmasq.pid',
   }
 
   $data_dir = $::operatingsystem ? {
@@ -80,7 +83,7 @@ class dnsmasq::params {
     default => '/var/log/dnsmasq/dnsmasq.log',
   }
 
-  $port = '42'
+  $port = '53'
   $protocol = 'tcp'
 
   # General Settings
@@ -88,7 +91,7 @@ class dnsmasq::params {
   $source = ''
   $source_dir = ''
   $source_dir_purge = false
-  $template = ''
+  $template = 'dnsmasq/dnsmasq.erb'
   $options = ''
   $service_autorestart = true
   $version = 'present'

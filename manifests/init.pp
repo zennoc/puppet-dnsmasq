@@ -240,7 +240,9 @@ class dnsmasq (
   $log_dir             = params_lookup('log_dir'),
   $log_file            = params_lookup('log_file'),
   $port                = params_lookup('port'),
-  $protocol            = params_lookup('protocol')) inherits dnsmasq::params {
+  $protocol            = params_lookup('protocol'),
+  $neg_ttl             = params_lookup('neg_ttl'),
+  $no_negcache         = params_lookup('no_negcache'),) inherits dnsmasq::params {
   $bool_source_dir_purge = any2bool($source_dir_purge)
   $bool_service_autorestart = any2bool($service_autorestart)
   $bool_absent = any2bool($absent)
@@ -252,7 +254,6 @@ class dnsmasq (
   $bool_debug = any2bool($debug)
   $bool_audit_only = any2bool($audit_only)
   $bool_noops = any2bool($noops)
-
   # ## Definition of some variables used in the module
   $manage_package = $dnsmasq::bool_absent ? {
     true  => 'absent',
