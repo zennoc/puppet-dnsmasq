@@ -1,0 +1,6 @@
+#File Managed by Puppet
+<% if scope.lookupvar("dnsmasq::neg_ttl") != '' %>
+neg_ttl=<%= scope.lookupvar("dnsmasq::neg_ttl") %>
+<% else %>
+//neg_ttl=3600
+<% end %>
