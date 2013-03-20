@@ -1,14 +1,9 @@
 #File Managed by Puppet
-# listen => ['127.0.0.1', '1.2.3.4']
 <% scope.lookupvar('dnsmasq::array_listen').each do |listen| %>listen-address=<%= listen %>
 <% end %>
-# server => ['8.8.8.8', '8.8.4.4']
 <% scope.lookupvar('dnsmasq::array_servers').each do |dns| %>server=<%= dns %>
 <% end %>
 cache-size=<%= cache_size %>
 <% if bool_no_negcache %>
 no-negcache
-<% else %>
-#To use set local_only => true
-#no-negcache
 <% end %>

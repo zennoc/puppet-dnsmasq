@@ -5,6 +5,23 @@
 #
 # == Parameters
 #
+# Module Specific Parameters
+#
+# [*listen*]
+#   Addresses to listen on ( Default : '127.0.0.1' )
+#   String or array of addresses to listen on
+#
+# [*server*]
+#   Additional upstream servers
+#   String or array of additional upstream DNS servers - dnsmasq uses /etc/resolv.conf by default
+#
+# [*cache_size*]
+#   Size in MB of DNS cache ( Default : 150 )
+#
+# [*no_negcache*]
+#   Do NOT cache failed search results. ( Default : false )
+#
+#
 # Standard class parameters
 # Define the general class behaviour and customizations
 #
