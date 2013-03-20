@@ -16,7 +16,7 @@ class dnsmasq::params {
   # ## Module related parameters
 
   $local_only = true
-  $server = ''    ]
+  $server = ''
   $cache_size = 150
   $no_negcache = false
 
