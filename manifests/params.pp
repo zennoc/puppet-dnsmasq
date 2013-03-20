@@ -13,8 +13,7 @@
 # It may be imported or inherited by other classes
 #
 class dnsmasq::params {
-
-  ### Application related parameters
+  # ## Application related parameters
 
   $package = $::operatingsystem ? {
     default => 'dnsmasq',
@@ -45,7 +44,7 @@ class dnsmasq::params {
   }
 
   $config_file = $::operatingsystem ? {
-    default => '/etc/dnsmasq/dnsmasq.conf',
+    default => '/etc/dnsmasq.conf',
   }
 
   $config_file_mode = $::operatingsystem ? {
@@ -97,7 +96,7 @@ class dnsmasq::params {
   $disable = false
   $disableboot = false
 
-  ### General module variables that can have a site or per module default
+  # ## General module variables that can have a site or per module default
   $monitor = false
   $monitor_tool = ''
   $monitor_target = $::ipaddress

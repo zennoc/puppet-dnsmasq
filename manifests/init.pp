@@ -200,62 +200,60 @@
 # See README for usage patterns.
 #
 class dnsmasq (
-  $my_class            = params_lookup( 'my_class' ),
-  $source              = params_lookup( 'source' ),
-  $source_dir          = params_lookup( 'source_dir' ),
-  $source_dir_purge    = params_lookup( 'source_dir_purge' ),
-  $template            = params_lookup( 'template' ),
-  $service_autorestart = params_lookup( 'service_autorestart' , 'global' ),
-  $options             = params_lookup( 'options' ),
-  $version             = params_lookup( 'version' ),
-  $absent              = params_lookup( 'absent' ),
-  $disable             = params_lookup( 'disable' ),
-  $disableboot         = params_lookup( 'disableboot' ),
-  $monitor             = params_lookup( 'monitor' , 'global' ),
-  $monitor_tool        = params_lookup( 'monitor_tool' , 'global' ),
-  $monitor_target      = params_lookup( 'monitor_target' , 'global' ),
-  $puppi               = params_lookup( 'puppi' , 'global' ),
-  $puppi_helper        = params_lookup( 'puppi_helper' , 'global' ),
-  $firewall            = params_lookup( 'firewall' , 'global' ),
-  $firewall_tool       = params_lookup( 'firewall_tool' , 'global' ),
-  $firewall_src        = params_lookup( 'firewall_src' , 'global' ),
-  $firewall_dst        = params_lookup( 'firewall_dst' , 'global' ),
-  $debug               = params_lookup( 'debug' , 'global' ),
-  $audit_only          = params_lookup( 'audit_only' , 'global' ),
-  $noops               = params_lookup( 'noops' ),
-  $package             = params_lookup( 'package' ),
-  $service             = params_lookup( 'service' ),
-  $service_status      = params_lookup( 'service_status' ),
-  $process             = params_lookup( 'process' ),
-  $process_args        = params_lookup( 'process_args' ),
-  $process_user        = params_lookup( 'process_user' ),
-  $config_dir          = params_lookup( 'config_dir' ),
-  $config_file         = params_lookup( 'config_file' ),
-  $config_file_mode    = params_lookup( 'config_file_mode' ),
-  $config_file_owner   = params_lookup( 'config_file_owner' ),
-  $config_file_group   = params_lookup( 'config_file_group' ),
-  $config_file_init    = params_lookup( 'config_file_init' ),
-  $pid_file            = params_lookup( 'pid_file' ),
-  $data_dir            = params_lookup( 'data_dir' ),
-  $log_dir             = params_lookup( 'log_dir' ),
-  $log_file            = params_lookup( 'log_file' ),
-  $port                = params_lookup( 'port' ),
-  $protocol            = params_lookup( 'protocol' )
-  ) inherits dnsmasq::params {
+  $my_class            = params_lookup('my_class'),
+  $source              = params_lookup('source'),
+  $source_dir          = params_lookup('source_dir'),
+  $source_dir_purge    = params_lookup('source_dir_purge'),
+  $template            = params_lookup('template'),
+  $service_autorestart = params_lookup('service_autorestart', 'global'),
+  $options             = params_lookup('options'),
+  $version             = params_lookup('version'),
+  $absent              = params_lookup('absent'),
+  $disable             = params_lookup('disable'),
+  $disableboot         = params_lookup('disableboot'),
+  $monitor             = params_lookup('monitor', 'global'),
+  $monitor_tool        = params_lookup('monitor_tool', 'global'),
+  $monitor_target      = params_lookup('monitor_target', 'global'),
+  $puppi               = params_lookup('puppi', 'global'),
+  $puppi_helper        = params_lookup('puppi_helper', 'global'),
+  $firewall            = params_lookup('firewall', 'global'),
+  $firewall_tool       = params_lookup('firewall_tool', 'global'),
+  $firewall_src        = params_lookup('firewall_src', 'global'),
+  $firewall_dst        = params_lookup('firewall_dst', 'global'),
+  $debug               = params_lookup('debug', 'global'),
+  $audit_only          = params_lookup('audit_only', 'global'),
+  $noops               = params_lookup('noops'),
+  $package             = params_lookup('package'),
+  $service             = params_lookup('service'),
+  $service_status      = params_lookup('service_status'),
+  $process             = params_lookup('process'),
+  $process_args        = params_lookup('process_args'),
+  $process_user        = params_lookup('process_user'),
+  $config_dir          = params_lookup('config_dir'),
+  $config_file         = params_lookup('config_file'),
+  $config_file_mode    = params_lookup('config_file_mode'),
+  $config_file_owner   = params_lookup('config_file_owner'),
+  $config_file_group   = params_lookup('config_file_group'),
+  $config_file_init    = params_lookup('config_file_init'),
+  $pid_file            = params_lookup('pid_file'),
+  $data_dir            = params_lookup('data_dir'),
+  $log_dir             = params_lookup('log_dir'),
+  $log_file            = params_lookup('log_file'),
+  $port                = params_lookup('port'),
+  $protocol            = params_lookup('protocol')) inherits dnsmasq::params {
+  $bool_source_dir_purge = any2bool($source_dir_purge)
+  $bool_service_autorestart = any2bool($service_autorestart)
+  $bool_absent = any2bool($absent)
+  $bool_disable = any2bool($disable)
+  $bool_disableboot = any2bool($disableboot)
+  $bool_monitor = any2bool($monitor)
+  $bool_puppi = any2bool($puppi)
+  $bool_firewall = any2bool($firewall)
+  $bool_debug = any2bool($debug)
+  $bool_audit_only = any2bool($audit_only)
+  $bool_noops = any2bool($noops)
 
-  $bool_source_dir_purge=any2bool($source_dir_purge)
-  $bool_service_autorestart=any2bool($service_autorestart)
-  $bool_absent=any2bool($absent)
-  $bool_disable=any2bool($disable)
-  $bool_disableboot=any2bool($disableboot)
-  $bool_monitor=any2bool($monitor)
-  $bool_puppi=any2bool($puppi)
-  $bool_firewall=any2bool($firewall)
-  $bool_debug=any2bool($debug)
-  $bool_audit_only=any2bool($audit_only)
-  $bool_noops=any2bool($noops)
-
-  ### Definition of some variables used in the module
+  # ## Definition of some variables used in the module
   $manage_package = $dnsmasq::bool_absent ? {
     true  => 'absent',
     false => $dnsmasq::version,
@@ -274,15 +272,15 @@ class dnsmasq (
 
   $manage_service_ensure = $dnsmasq::bool_disable ? {
     true    => 'stopped',
-    default =>  $dnsmasq::bool_absent ? {
+    default => $dnsmasq::bool_absent ? {
       true    => 'stopped',
       default => 'running',
     },
   }
 
   $manage_service_autorestart = $dnsmasq::bool_service_autorestart ? {
-    true    => Service[dnsmasq],
-    false   => undef,
+    true  => Service[dnsmasq],
+    false => undef,
   }
 
   $manage_file = $dnsmasq::bool_absent ? {
@@ -290,16 +288,13 @@ class dnsmasq (
     default => 'present',
   }
 
-  if $dnsmasq::bool_absent == true
-  or $dnsmasq::bool_disable == true
-  or $dnsmasq::bool_disableboot == true {
+  if $dnsmasq::bool_absent == true or $dnsmasq::bool_disable == true or $dnsmasq::bool_disableboot == true {
     $manage_monitor = false
   } else {
     $manage_monitor = true
   }
 
-  if $dnsmasq::bool_absent == true
-  or $dnsmasq::bool_disable == true {
+  if $dnsmasq::bool_absent == true or $dnsmasq::bool_disable == true {
     $manage_firewall = false
   } else {
     $manage_firewall = true
@@ -316,29 +311,29 @@ class dnsmasq (
   }
 
   $manage_file_source = $dnsmasq::source ? {
-    ''        => undef,
-    default   => $dnsmasq::source,
+    ''      => undef,
+    default => $dnsmasq::source,
   }
 
   $manage_file_content = $dnsmasq::template ? {
-    ''        => undef,
-    default   => template($dnsmasq::template),
+    ''      => undef,
+    default => template($dnsmasq::template),
   }
 
-  ### Managed resources
+  # ## Managed resources
   package { $dnsmasq::package:
-    ensure  => $dnsmasq::manage_package,
-    noop    => $dnsmasq::bool_noops,
+    ensure => $dnsmasq::manage_package,
+    noop   => $dnsmasq::bool_noops,
   }
 
   service { 'dnsmasq':
-    ensure     => $dnsmasq::manage_service_ensure,
-    name       => $dnsmasq::service,
-    enable     => $dnsmasq::manage_service_enable,
-    hasstatus  => $dnsmasq::service_status,
-    pattern    => $dnsmasq::process,
-    require    => Package[$dnsmasq::package],
-    noop       => $dnsmasq::bool_noops,
+    ensure    => $dnsmasq::manage_service_ensure,
+    name      => $dnsmasq::service,
+    enable    => $dnsmasq::manage_service_enable,
+    hasstatus => $dnsmasq::service_status,
+    pattern   => $dnsmasq::process,
+    require   => Package[$dnsmasq::package],
+    noop      => $dnsmasq::bool_noops,
   }
 
   file { 'dnsmasq.conf':
@@ -373,16 +368,15 @@ class dnsmasq (
     }
   }
 
-
-  ### Include custom class if $my_class is set
+  # ## Include custom class if $my_class is set
   if $dnsmasq::my_class {
     include $dnsmasq::my_class
   }
 
-
-  ### Provide puppi data, if enabled ( puppi => true )
+  # ## Provide puppi data, if enabled ( puppi => true )
   if $dnsmasq::bool_puppi == true {
-    $classvars=get_class_args()
+    $classvars = get_class_args()
+
     puppi::ze { 'dnsmasq':
       ensure    => $dnsmasq::manage_file,
       variables => $classvars,
@@ -391,8 +385,7 @@ class dnsmasq (
     }
   }
 
-
-  ### Service monitoring, if enabled ( monitor => true )
+  # ## Service monitoring, if enabled ( monitor => true )
   if $dnsmasq::bool_monitor == true {
     if $dnsmasq::port != '' {
       monitor::port { "dnsmasq_${dnsmasq::protocol}_${dnsmasq::port}":
@@ -404,6 +397,7 @@ class dnsmasq (
         noop     => $dnsmasq::bool_noops,
       }
     }
+
     if $dnsmasq::service != '' {
       monitor::process { 'dnsmasq_process':
         process  => $dnsmasq::process,
@@ -418,8 +412,7 @@ class dnsmasq (
     }
   }
 
-
-  ### Firewall management, if enabled ( firewall => true )
+  # ## Firewall management, if enabled ( firewall => true )
   if $dnsmasq::bool_firewall == true and $dnsmasq::port != '' {
     firewall { "dnsmasq_${dnsmasq::protocol}_${dnsmasq::port}":
       source      => $dnsmasq::firewall_src,
@@ -434,8 +427,7 @@ class dnsmasq (
     }
   }
 
-
-  ### Debugging, if enabled ( debug => true )
+  # ## Debugging, if enabled ( debug => true )
   if $dnsmasq::bool_debug == true {
     file { 'debug_dnsmasq':
       ensure  => $dnsmasq::manage_file,
@@ -443,7 +435,8 @@ class dnsmasq (
       mode    => '0640',
       owner   => 'root',
       group   => 'root',
-      content => inline_template('<%= scope.to_hash.reject { |k,v| k.to_s =~ /(uptime.*|path|timestamp|free|.*password.*|.*psk.*|.*key)/ }.to_yaml %>'),
+      content => inline_template('<%= scope.to_hash.reject { |k,v| k.to_s =~ /(uptime.*|path|timestamp|free|.*password.*|.*psk.*|.*key)/ }.to_yaml %>'
+      ),
       noop    => $dnsmasq::bool_noops,
     }
   }
