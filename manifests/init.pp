@@ -21,6 +21,9 @@
 # [*no_negcache*]
 #   Do NOT cache failed search results. ( Default : false )
 #
+# [*neg_ttl*]
+# Specify time-to-live in seconds for negative caching (  Default : '' (disabled) )
+#
 #
 # Standard class parameters
 # Define the general class behaviour and customizations
