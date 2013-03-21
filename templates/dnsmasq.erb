@@ -7,3 +7,6 @@ cache-size=<%= cache_size %>
 <% if bool_no_negcache %>
 no-negcache
 <% end %>
+<% if scope.lookupvar("dnsmasq::neg_ttl") != '' %>
+neg-ttl=<%= scope.lookupvar("dnsmasq::neg_ttl") %>
+<% end %>
