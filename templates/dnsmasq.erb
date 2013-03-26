@@ -10,3 +10,6 @@ no-negcache
 <% if scope.lookupvar("dnsmasq::neg_ttl") != '' %>
 neg-ttl=<%= scope.lookupvar("dnsmasq::neg_ttl") %>
 <% end %>
+<% if scope.lookupvar("dnsmasq::logfacility") != '' %>
+log-facility=<%= scope.lookupvar("dnsmasq::logfacility") %>
+<% end %>

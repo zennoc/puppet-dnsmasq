@@ -265,7 +265,8 @@ class dnsmasq (
   $cache_size          = params_lookup('cache_size'),
   $no_negcache         = params_lookup('no_negcache'),
   $listen              = params_lookup('listen'),
-  $neg_ttl             = params_lookup('neg_ttl'),) inherits dnsmasq::params {
+  $neg_ttl             = params_lookup('neg_ttl'),
+  $logfacility         = params_lookup('logfacility')) inherits dnsmasq::params {
   $bool_source_dir_purge = any2bool($source_dir_purge)
   $bool_service_autorestart = any2bool($service_autorestart)
   $bool_absent = any2bool($absent)
@@ -278,6 +279,7 @@ class dnsmasq (
   $bool_audit_only = any2bool($audit_only)
   $bool_noops = any2bool($noops)
   $bool_no_negcache = any2bool($no_negcache)
+
   $array_servers = is_array($dnsmasq::server) ? {
     false   => $dnsmasq::server ? {
       ''      => [

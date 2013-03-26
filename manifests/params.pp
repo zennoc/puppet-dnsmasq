@@ -20,6 +20,7 @@ class dnsmasq::params {
   $cache_size = 150
   $no_negcache = false
   $neg_ttl = ''
+  $logfacility = ''
 
   # ## Application related parameters
 
