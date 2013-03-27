@@ -24,6 +24,10 @@
 # [*neg_ttl*]
 # Specify time-to-live in seconds for negative caching (  Default : '' (disabled) )
 #
+# [*logfacility*]
+# Log to this syslog facility or file. (  Default : '' (DAEMON) )
+# If the facility given contains at least one '/' character, it is taken to be a filename
+#
 #
 # Standard class parameters
 # Define the general class behaviour and customizations
